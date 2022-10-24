@@ -20,7 +20,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
     init = time.time()
 
     s.bind((HOST, PORT))
-    s.listen()
 
     while(True):
 
