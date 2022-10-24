@@ -1,15 +1,19 @@
-
 import socket
 
-HOST = "10.0.2.15"
-PORT = 49152
-bufferSize = 1024
+msgFromClient       = "Hello UDP Server"
+bytesToSend         = str.encode(msgFromClient)
+serverAddressPort   = ("10.0.2.15", 20001)
+bufferSize          = 1024
 
-with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as s:
-    s.connect((HOST, PORT))
+ 
 
-    bytesToSend = str.encode("REQUEST_FILE")
-    s.sendto(bytesToSend, (HOST, PORT))
+# Create a UDP socket at client side
+UDPClientSocket = socket.socket(family=socket.AF_INET, type=socket.SOCK_DGRAM)
 
-    msgFromServer = s.recvfrom(bufferSize)
-    msg = "Message from Server {}".format(msgFromServer[0])
+# Send to server using created UDP socket
+UDPClientSocket.sendto(bytesToSend, serverAddressPort)
+ 
+msgFromServer = UDPClientSocket.recvfrom(bufferSize)
+msg = "Message from Server {}".format(msgFromServer[0])
+
+print(msg)
