@@ -47,8 +47,10 @@ def handle_client(client_id):
     msg = "Nombre del archivo: " + file_name + " Tamanio del archivo: " + str(file_stats.st_size)
     msg += " Cliente: " + str(client_id)
     msg += "\nEl tiempo calculado fue de: " + str(tiempo) +"\n"
-
-    log = open("Logs/"+name+"-log.txt","w")
+    if os.path.exists("Logs/"+name+"-log.txt"):
+        log = open("Logs/"+name+"-log.txt","a")
+    else:
+        log = open("Logs/"+name+"-log.txt","w")
     log.write(msg)
     log.close()
     lock.release()
