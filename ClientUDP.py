@@ -5,7 +5,7 @@ import sys
 import threading
 import time
 
-lock = threading.lock()
+lock = threading.Lock()
 
 def recieve_file(file_name,sock):
     file = open(file_name, "w")

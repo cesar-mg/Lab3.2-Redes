@@ -3,7 +3,7 @@ import os
 import socketserver as SocketServer, threading, time
 
 path = ''
-lock = threading.lock()
+lock = threading.Lock()
 
 class ThreadedUDPRequestHandler(SocketServer.BaseRequestHandler):
 
