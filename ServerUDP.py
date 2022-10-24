@@ -28,7 +28,7 @@ class ThreadedUDPRequestHandler(SocketServer.BaseRequestHandler):
         date = datetime.datetime.now()
         name = str(date.year) + "-" + str(date.month) + "-" + str(date.day) + "-" + str(date.hour) + "-" + str(date.minute) + "-" + str(date.second)
         file_stats = os.stat(path)
-        msg = "Nombre del archivo: " + path + " Tamanio del archivo: " + file_stats.st_size
+        msg = "Nombre del archivo: " + path + " Tamanio del archivo: " + str(file_stats.st_size)
         msg += " Cliente: " + str(client_id)
         msg += "\nEl tiempo calculado fue de: " + str(tiempo) +"\n"
 
