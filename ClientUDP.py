@@ -16,7 +16,7 @@ def recieve_file(file_name,sock):
             file.write(archivo)
             archivo = sock.recv(1024).decode("utf-8")
     except TimeoutError:
-        nada = 1
+        print("Timeout package")
     file.close()
     return
 
@@ -26,7 +26,7 @@ def handle_client(client_id):
     file_name = "ArchivosRecibidos/Cliente" + str(client_id) + "-Prueba-"+str(clientes)+".txt"
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    sock.settimeout(10)
+    sock.settimeout(90)
 
     sock.sendto((data + "\n").encode("utf-8"), (HOST, PORT))
     print("Cliente " + str(client_id) + " conectado y recibiendo datos...")
@@ -54,7 +54,7 @@ def handle_client(client_id):
     log.write(msg)
     log.close()
     lock.release()
-clientes = 1
+clientes = 5
 for i in range(clientes):
     t = threading.Thread(target=handle_client, args=((i+1,)))
     t.start()
