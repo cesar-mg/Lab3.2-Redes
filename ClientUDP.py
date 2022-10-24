@@ -26,12 +26,15 @@ def handle_client(client_id):
     file_name = "ArchivosRecibidos/Cliente" + str(client_id) + "-Prueba-"+str(clientes)+".txt"
 
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    sock.settimeout(10)
 
     sock.sendto((data + "\n").encode("utf-8"), (HOST, PORT))
     print("Cliente " + str(client_id) + " conectado y recibiendo datos...")
     init = time.time()
 
     recieve_file(file_name,sock)
+
+    print("Cliente " + str(client_id) + " recibió los datos.")
 
     lock.acquire()
     fin = time.time()
@@ -41,7 +44,7 @@ def handle_client(client_id):
     
     date = datetime.datetime.now()
     name = str(date.year) + "-" + str(date.month) + "-" + str(date.day) + "-" + str(date.hour) + "-" + str(date.minute) + "-" + str(date.second)
-    msg = "Nombre del archivo: " + file_name + " Tamanio del archivo: " + file_stats.st_size
+    msg = "Nombre del archivo: " + file_name + " Tamanio del archivo: " + str(file_stats.st_size)
     msg += " Cliente: " + str(client_id)
     msg += "\nEl tiempo calculado fue de: " + str(tiempo) +"\n"
 
@@ -49,8 +52,6 @@ def handle_client(client_id):
     log.write(msg)
     log.close()
     lock.release()
-
-    print("Cliente " + str(client_id) + " recibió los datos.")
 clientes = 1
 for i in range(clientes):
     t = threading.Thread(target=handle_client, args=((i+1,)))
