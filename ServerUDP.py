@@ -32,7 +32,7 @@ class ThreadedUDPRequestHandler(SocketServer.BaseRequestHandler):
         msg += " Cliente: " + str(client_id)
         msg += "\nEl tiempo calculado fue de: " + str(tiempo) +"\n"
 
-        log = open("Logs/"+name+"-log.txt","w")
+        log = open("Logs/"+name+"-log.txt","a")
         log.write(msg)
         log.close()
         lock.release()
